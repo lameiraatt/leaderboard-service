@@ -17,6 +17,9 @@ public class LeaderboardRepositoryService {
         return profileRepository.findAll();
     }
 
-
+    /**
+     * Adds profile to database
+     * @param profile profile object
+     */
     public void addProfile(Profile profile){profileRepository.save(profile); }
 }

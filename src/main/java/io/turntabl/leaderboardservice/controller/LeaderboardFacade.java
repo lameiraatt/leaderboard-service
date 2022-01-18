@@ -5,6 +5,7 @@ import io.turntabl.leaderboardservice.client.response.UserDto;
 import io.turntabl.leaderboardservice.controller.response.ProfileDto;
 import io.turntabl.leaderboardservice.converter.ProfileToProfileDtoConverter;
 import io.turntabl.leaderboardservice.converter.UserDtoToProfileConverter;
+import io.turntabl.leaderboardservice.exceptions.UserDoesNotExistsException;
 import io.turntabl.leaderboardservice.model.Profile;
 import io.turntabl.leaderboardservice.service.LeaderboardRepositoryService;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,8 @@ public class LeaderboardFacade {
     public void addUserToLeaderboard(String username) {
         log.info("Log -> Get user from codeWars client by username: {}",username);
         UserDto user = codewarsClient.getUser(username); // use codewars client to get user with username
+
+        if (user == null) throw new UserDoesNotExistsException("Username does not Exist on Codewars!");
 
         log.info("Log -> Convert from userDto to profile");
         Profile profile = userDtoToProfileConverter.convert(user);  // convert user to profile dto

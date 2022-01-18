@@ -22,10 +22,15 @@ public class LeaderboardController {
     }
 
 
+    /**
+     * API to add codewars user to the leaderboard
+     * @param body containing username of codewars user
+     * @return success if successful
+     */
     @PostMapping
     public ResponseEntity<Object> addUserToLeaderBoard(@RequestBody AddUserToLeaderboardBody body ) {
         leaderboardFacade.addUserToLeaderboard(body.getUsername());
-        return ResponseEntity.ok().body("Success");
+        return ResponseEntity.ok().body("User Successfully Added");
     }
     @Data
     static class AddUserToLeaderboardBody {
