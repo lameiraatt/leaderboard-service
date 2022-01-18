@@ -1,6 +1,7 @@
 package io.turntabl.leaderboardservice.client.response;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
