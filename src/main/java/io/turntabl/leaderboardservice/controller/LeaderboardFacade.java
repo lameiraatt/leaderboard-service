@@ -42,6 +42,6 @@ public class LeaderboardFacade {
         Profile profile = userDtoToProfileConverter.convert(user);  // convert user to profile dto
 
         log.info("Log -> Add profile to Database {}", profile);
-       // leaderboardRepositoryService.addProfile(profile);
+        leaderboardRepositoryService.addProfile(profile);
     }
 }

@@ -42,4 +42,18 @@ class LeaderboardRepositoryServiceTest {
         assertThat(result).containsExactly(profile1, profile2);
     }
 
+    @Test
+    void shouldAddProfile() {
+        Profile profile1 = mock(Profile.class);
+        Profile profile2 = mock(Profile.class);
+
+        underTest.addProfile(profile1);
+        underTest.addProfile(profile2);
+
+        // when
+        List<Profile> result = underTest.getProfiles();
+        // then
+        assertThat(result).containsExactly(profile1, profile2);
+
+    }
 }

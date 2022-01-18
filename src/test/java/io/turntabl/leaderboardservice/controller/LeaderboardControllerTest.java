@@ -41,4 +41,9 @@ class LeaderboardControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(result -> assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(expectedResponse)));
     }
+
+    @Test
+    void shouldAddUserToLeaderboard() throws Exception {
+        //LeaderboardController.AddUserToLeaderboardBody
+    }
 }
