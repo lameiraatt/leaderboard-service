@@ -1,10 +1,11 @@
 package io.turntabl.leaderboardservice.controller;
 
+import com.sun.istack.NotNull;
 import io.turntabl.leaderboardservice.controller.response.ProfileDto;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,4 +20,17 @@ public class LeaderboardController {
     public List<ProfileDto> getLeaderboard() {
         return leaderboardFacade.getLeaderboard();
     }
+
+
+    @PostMapping
+    public ResponseEntity<Object> addUserToLeaderBoard(@RequestBody AddUserToLeaderboardBody body ) {
+        leaderboardFacade.addUserToLeaderboard(body.getUsername());
+        return ResponseEntity.ok().body("Success");
+    }
+    @Data
+    static class AddUserToLeaderboardBody {
+        @NotNull
+        private String username;
+    }
+
 }

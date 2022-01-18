@@ -16,4 +16,7 @@ public class LeaderboardRepositoryService {
     public List<Profile> getProfiles() {
         return profileRepository.findAll();
     }
+
+
+    public void addProfile(Profile profile){profileRepository.save(profile); }
 }
