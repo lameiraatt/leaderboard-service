@@ -17,13 +17,9 @@ public class LeaderboardRepositoryService {
         return profileRepository.findAll();
     }
 
-    /**
-     * Adds profile to database
-     * @param profile profile object
-     */
-    public void addProfile(Profile profile){profileRepository.save(profile); }
 
     public void addProfile(String username){
+        // add logic to check user from codewars
         Profile profile = new Profile().setId(username);
         profileRepository.save(profile);
 

@@ -47,8 +47,8 @@ class LeaderboardRepositoryServiceTest {
         Profile profile1 = mock(Profile.class);
         Profile profile2 = mock(Profile.class);
 
-        underTest.addProfile(profile1);
-        underTest.addProfile(profile2);
+//        underTest.addProfile(profile1);
+//        underTest.addProfile(profile2);
 
         // when
         List<Profile> result = underTest.getProfiles();
