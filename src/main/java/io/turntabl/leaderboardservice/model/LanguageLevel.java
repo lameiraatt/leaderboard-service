@@ -1,6 +1,7 @@
 package io.turntabl.leaderboardservice.model;
 
 import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
@@ -25,5 +26,6 @@ public class LanguageLevel {
     @Id
     @ManyToOne
     @JoinColumn(name="PROFILE_ID", nullable=false)
+    @ToString.Exclude
     private Profile profile;
 }
