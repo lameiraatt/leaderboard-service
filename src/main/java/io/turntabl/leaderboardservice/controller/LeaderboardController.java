@@ -21,6 +21,15 @@ public class LeaderboardController {
         return leaderboardFacade.getLeaderboard();
     }
 
+    @GetMapping("profile/{username}")
+    public ProfileDto getProfileById(@PathVariable String username){
+        return leaderboardFacade.getProfileById(username);
+    }
+
+    @GetMapping("/{language}")
+    public List<ProfileDto> getLeaderboardByLanguage(@PathVariable String language){
+        return leaderboardFacade.getLeaderboardByLanguage(language);
+    }
 
     /**
      * API to add codewars user to the leaderboard
