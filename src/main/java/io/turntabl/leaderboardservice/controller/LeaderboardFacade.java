@@ -5,6 +5,7 @@ import io.turntabl.leaderboardservice.client.response.UserDto;
 import io.turntabl.leaderboardservice.controller.response.ProfileDto;
 import io.turntabl.leaderboardservice.converter.ProfileToProfileDtoConverter;
 import io.turntabl.leaderboardservice.converter.UserDtoToProfileConverter;
+import io.turntabl.leaderboardservice.exceptions.ProfileAlreadyExistsException;
 import io.turntabl.leaderboardservice.exceptions.UserDoesNotExistsException;
 import io.turntabl.leaderboardservice.model.Profile;
 import io.turntabl.leaderboardservice.service.LeaderboardRepositoryService;
@@ -32,16 +33,33 @@ public class LeaderboardFacade {
                 .collect(toList());
     }
 
+    public List<ProfileDto> getLeaderboardByLanguage(String language){
+        return leaderboardRepositoryService.getProfiles().stream()
+                .filter(p -> p.getLanguageLevels().stream().anyMatch( l -> l.getName().equals(language)))
+                .map(profileToProfileDtoConverter::convert)
+                .collect(toList());
+    }
+
+    public ProfileDto getProfileById(String username){
+       return profileToProfileDtoConverter.convert(leaderboardRepositoryService.getProfileById(username));
+    }
+
+    /**
+     * Adds a user to the leaderboard
+     * @param username of codewars user
+     */
     public void addUserToLeaderboard(String username) {
         log.info("Log -> Get user from codeWars client by username: {}",username);
-        UserDto user = codewarsClient.getUser(username); // use codewars client to get user with username
 
-        if (user == null) throw new UserDoesNotExistsException("Username does not Exist on Codewars!");
+//       /// if (user == null) throw new UserDoesNotExistsException("Username does not Exist on Codewars!");
+//
+////        log.info("Log -> Check if User Exists in Db Already: {}",username);
+////        if(getProfileById(username) != null) throw new ProfileAlreadyExistsException("This Profile Already Exists");
+//
 
-        log.info("Log -> Convert from userDto to profile");
-        Profile profile = userDtoToProfileConverter.convert(user);  // convert user to profile dto
+//
+//        log.info("Log -> Add profile to Database {}", profile);
+        leaderboardRepositoryService.addProfile(username);
 
-        log.info("Log -> Add profile to Database {}", profile);
-        leaderboardRepositoryService.addProfile(profile);
     }
 }

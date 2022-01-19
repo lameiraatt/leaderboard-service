@@ -21,6 +21,8 @@ public class Handler {
 
         else if (ex instanceof UserDoesNotExistsException) return new ResponseEntity<>(SERVER_ERROR+ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
 
+        else if (ex instanceof ProfileAlreadyExistsException) return new ResponseEntity<>(SERVER_ERROR+ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 
 

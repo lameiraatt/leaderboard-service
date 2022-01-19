@@ -22,4 +22,14 @@ public class LeaderboardRepositoryService {
      * @param profile profile object
      */
     public void addProfile(Profile profile){profileRepository.save(profile); }
+
+    public void addProfile(String username){
+        Profile profile = new Profile().setId(username);
+        profileRepository.save(profile);
+
+    }
+
+    public Profile getProfileById(String username){
+        return profileRepository.getById(username);
+    }
 }

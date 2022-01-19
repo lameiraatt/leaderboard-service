@@ -26,7 +26,6 @@ public class LanguageLevel {
     @Id
     @ManyToOne
     @JoinColumn(name="PROFILE_ID", nullable=false)
-
     @ToString.Exclude
     private Profile profile;
 }
