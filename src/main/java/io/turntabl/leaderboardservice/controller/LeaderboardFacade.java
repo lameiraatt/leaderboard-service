@@ -1,5 +1,6 @@
 package io.turntabl.leaderboardservice.controller;
 
+import io.turntabl.leaderboardservice.controller.request.CreateProfileDto;
 import io.turntabl.leaderboardservice.controller.response.ProfileDto;
 import io.turntabl.leaderboardservice.converter.ProfileToProfileDtoConverter;
 import io.turntabl.leaderboardservice.service.LeaderboardRepositoryService;
@@ -21,5 +22,9 @@ public class LeaderboardFacade {
         return leaderboardRepositoryService.getProfiles().stream()
                 .map(profileToProfileDtoConverter::convert)
                 .collect(toList());
+    }
+
+    public ProfileDto createUser(CreateProfileDto createProfileDto) {
+        return ProfileDto.builder().build();
     }
 }
