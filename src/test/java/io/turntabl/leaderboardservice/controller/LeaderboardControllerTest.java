@@ -1,11 +1,13 @@
 package io.turntabl.leaderboardservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.turntabl.leaderboardservice.controller.request.CreateProfileDto;
 import io.turntabl.leaderboardservice.controller.response.ProfileDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = LeaderboardController.class)
@@ -40,5 +43,27 @@ class LeaderboardControllerTest {
         mockMvc.perform(get("/v1/leaderboard"))
                 .andExpect(status().isOk())
                 .andExpect(result -> assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(expectedResponse)));
+    }
+
+    @Test
+    void shouldCreateProfile() throws Exception {
+        // given
+        String username = "peach";
+        CreateProfileDto requestBody = CreateProfileDto.builder()
+                .username(username)
+                .build();
+        ProfileDto expectedResponse = ProfileDto.builder()
+                .username(username)
+                .build();
+
+        when(leaderboardFacade.createUser(requestBody)).thenReturn(expectedResponse);
+
+        // when then
+        mockMvc.perform(post("/v1/leaderboard/profiles")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(requestBody)))
+                .andExpect(status().isCreated())
+                .andExpect(result -> assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(expectedResponse)));
+
     }
 }
